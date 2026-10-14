@@ -1,0 +1,95 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.5.15/schema.json",
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
+  "files": {
+    "includes": ["**", "!dist", "!dist-app", "!.turbo", "!.claude", "!node_modules"]
+  },
+  "formatter": {
+    "enabled": true,
+    "formatWithErrors": false,
+    "indentStyle": "space",
+    "attributePosition": "auto",
+    "bracketSpacing": true,
+    "lineWidth": 180,
+    "indentWidth": 2
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "preset": "recommended",
+      "complexity": {
+        "noForEach": "off",
+        "noStaticOnlyClass": "off",
+        "noUselessSwitchCase": "off",
+        "useFlatMap": "off"
+      },
+      "style": {
+        "noNegationElse": "warn",
+        "useForOf": "error",
+        "useNodejsImportProtocol": "error",
+        "useNumberNamespace": "error",
+        "noNonNullAssertion": "off"
+      },
+      "suspicious": {
+        "noDoubleEquals": "error",
+        "noThenProperty": "error",
+        "useIsArray": "error",
+        "noArrayIndexKey": "warn"
+      },
+      "performance": {
+        "noAccumulatingSpread": "off"
+      },
+      "a11y": {
+        "noSvgWithoutTitle": "info",
+        "noLabelWithoutControl": "off"
+      },
+      "correctness": {
+        "useHookAtTopLevel": "warn",
+        "useExhaustiveDependencies": "info"
+      }
+    }
+  },
+  "overrides": [
+    {
+      "includes": ["packages/env/**"],
+      "linter": { "rules": { "suspicious": { "noTemplateCurlyInString": "off" } } }
+    }
+  ],
+  "assist": {
+    "enabled": true,
+    "actions": {
+      "source": {
+        "useSortedAttributes": "on"
+      }
+    }
+  },
+  "javascript": {
+    "formatter": {
+      "semicolons": "asNeeded",
+      "quoteStyle": "single",
+      "jsxQuoteStyle": "single",
+      "quoteProperties": "asNeeded",
+      "arrowParentheses": "asNeeded"
+    }
+  },
+  "css": {
+    "assist": {
+      "enabled": false
+    },
+    "parser": {
+      "cssModules": true
+    },
+    "formatter": {
+      "quoteStyle": "single"
+    }
+  },
+  "json": {
+    "assist": {
+      "enabled": false
+    }
+  }
+}

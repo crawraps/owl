@@ -1,0 +1,46 @@
+{
+  "name": "@repo/navigation",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "dependencies": {
+    "react-freeze": "^1.0.4",
+    "wouter": "^3.10.0"
+  },
+  "peerDependencies": {
+    "react": ">=19.0.0",
+    "react-dom": ">=19.0.0"
+  },
+  "devDependencies": {
+    "@rsbuild/plugin-react": "^1.4.6",
+    "@rslib/core": "^0.19.6",
+    "@rstest/adapter-rsbuild": "^0.10.6",
+    "@rstest/core": "^0.10.6",
+    "@testing-library/react": "^16.0.0",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "happy-dom": "^20.11.1",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "typescript": "^5.9.3"
+  },
+  "scripts": {
+    "build": "rslib build",
+    "clean": "rm -rf dist .turbo .rslib .cache node_modules/.cache",
+    "dev": "rslib build --watch",
+    "lint": "biome check --write && tsc",
+    "test": "rstest run"
+  }
+}

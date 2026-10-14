@@ -1,0 +1,20 @@
+.root {
+  display: flex;
+  padding-bottom: env(safe-area-inset-bottom);
+  background-color: var(--md-sys-color-surface-container);
+}
+
+.item {
+  flex: 1;
+  min-height: 3.5rem;
+  border: none;
+  background: none;
+  color: var(--md-sys-color-on-surface-variant);
+  font: inherit;
+  font-size: var(--md-sys-typescale-label-large-size);
+}
+
+.item[is-active] {
+  color: var(--md-sys-color-primary);
+  font-weight: var(--md-sys-typescale-label-large-weight);
+}

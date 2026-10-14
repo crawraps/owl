@@ -1,0 +1,13 @@
+node_modules/
+dist/
+.rsbuild/
+.turbo/
+.superpowers/
+
+.envrc
+.direnv/
+**/.env/*.local
+.agents/
+
+# Temporarily ignore docs
+docs/

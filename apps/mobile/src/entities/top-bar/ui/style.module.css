@@ -1,0 +1,15 @@
+.root {
+  display: flex;
+  align-items: center;
+  min-height: 3.5rem;
+  padding: env(safe-area-inset-top) 1rem 0;
+  background-color: var(--md-sys-color-surface-container);
+  color: var(--md-sys-color-on-surface);
+}
+
+.title {
+  margin: 0;
+  font-size: var(--md-sys-typescale-title-large-size);
+  font-weight: var(--md-sys-typescale-title-large-weight);
+  line-height: var(--md-sys-typescale-title-large-line-height);
+}

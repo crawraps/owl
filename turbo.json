@@ -1,0 +1,47 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": ["tsconfig.json", "scripts/babel/auto-clsx.js"],
+  "ui": "tui",
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT$", ".env/**"],
+      "env": ["APP_ENV"],
+      "outputs": ["dist/**"]
+    },
+    "dev": {
+      "dependsOn": ["build"],
+      "env": ["APP_ENV"],
+      "cache": false,
+      "persistent": true
+    },
+    "mobile#dev": {
+      "dependsOn": ["^build"],
+      "env": ["APP_ENV"],
+      "with": ["@repo/ui#dev", "@repo/utils#dev", "@repo/navigation#dev"],
+      "cache": false,
+      "persistent": true
+    },
+    "@repo/ui#dev": {
+      "dependsOn": ["build"],
+      "with": ["@repo/utils#dev"],
+      "cache": false,
+      "persistent": true
+    },
+    "preview": {
+      "cache": false,
+      "passThroughEnv": ["ANDROID_HOME", "ANDROID_SDK_ROOT", "JAVA_HOME", "ADB_SERVER_SOCKET", "ANDROID_ADB_SERVER_PORT", "GRADLE_USER_HOME"]
+    },
+    "lint": {
+      "dependsOn": ["^lint"]
+    },
+    "test": {
+      "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT$", ".env/**"],
+      "env": ["APP_ENV"]
+    },
+    "typecheck": {
+      "dependsOn": ["^build", "^typecheck"]
+    }
+  }
+}

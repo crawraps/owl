@@ -1,0 +1,6 @@
+{
+  "appId": "com.familyfinance.owl",
+  "appName": "owl",
+  "webDir": "dist",
+  "android": { "path": "./android" }
+}
