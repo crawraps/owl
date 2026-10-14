@@ -77,4 +77,12 @@ describe('<App> theming', () => {
 
     expect(document.documentElement.style.getPropertyValue('--md-sys-color-primary')).toBe(darkTheme.palette.primary)
   })
+
+  it('applies the motion strength selected on the options tab', () => {
+    renderAt('/tabs/options')
+
+    act(() => screen.getByRole('button', { name: 'None' }).click())
+
+    expect(document.documentElement.getAttribute('muir-motion')).toBe('none')
+  })
 })

@@ -1,3 +1,4 @@
+import { MotionSwitch } from 'src/features/motion-switch'
 import { ThemeSwitch } from 'src/features/theme-switch'
 
 function OptionsPage() {
@@ -5,6 +6,7 @@ function OptionsPage() {
     <>
       <p>Options</p>
       <ThemeSwitch />
+      <MotionSwitch />
     </>
   )
 }
