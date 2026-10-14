@@ -1,1 +1,1 @@
-export * from './theming'
+export * from 'src/shared/theming'

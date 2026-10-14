@@ -2,7 +2,8 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "jsx": "react-jsx",
-    "rootDir": "."
+    "rootDir": ".",
+    "paths": { "src/*": ["./src/*"] }
   },
   "include": ["src", "rslib.config.ts", "rstest.config.ts"]
 }
