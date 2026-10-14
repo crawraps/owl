@@ -1,6 +1,6 @@
-import type { ColorPalette, Shape, SurfaceConfig, Theme, Typeface } from '../model/properties'
+import type { ColorPalette, MotionStrength, Shape, SurfaceConfig, Theme, Typeface } from '../model/properties'
 
-const css = `body{margin:0;background-color:var(--md-sys-color-background);color:var(--md-sys-color-on-background);font-family:var(--md-ref-typeface-plain);transition:background-color var(--md-sys-motion-expressive-fast-effects-transition),color var(--md-sys-motion-expressive-fast-effects-transition)}small{font-size:var(--md-sys-typescale-body-small-size);color:var(--md-sys-color-on-surface);opacity:.75}`
+const css = `body{margin:0;background-color:var(--md-sys-color-background);color:var(--md-sys-color-on-background);font-family:var(--md-ref-typeface-plain);transition:background-color var(--md-sys-motion-expressive-fast-effects-transition),color var(--md-sys-motion-expressive-fast-effects-transition)}small{font-size:var(--md-sys-typescale-body-small-size);color:var(--md-sys-color-on-surface);opacity:.75}[muir-motion='none'] *,[muir-motion='none'] *::before,[muir-motion='none'] *::after{transition:none!important;animation:none!important}`
 
 const BASE_STYLE_ID = 'muir-theme-base-style'
 
@@ -32,6 +32,10 @@ export function applyMotionToCss(motion: Theme['motion']): void {
       }
     }
   }
+}
+
+export function applyMotionStrengthToCss(strength: MotionStrength): void {
+  document.documentElement.setAttribute('muir-motion', strength)
 }
 
 export function applyTypefaceToCss(typography: Typeface): void {

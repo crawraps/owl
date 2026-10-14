@@ -8,10 +8,10 @@ const themes = {
   dark: { palette: { primary: '#222222' } },
 }
 
-function stubSystemScheme(scheme: 'light' | 'dark') {
+function stubSystemScheme(scheme: 'light' | 'dark', reducedMotion = false) {
   window.matchMedia = (query: string) =>
     ({
-      matches: query === '(prefers-color-scheme: dark)' && scheme === 'dark',
+      matches: (query === '(prefers-color-scheme: dark)' && scheme === 'dark') || (query === '(prefers-reduced-motion: reduce)' && reducedMotion),
       media: query,
       onchange: null,
       addEventListener() {},
@@ -23,13 +23,17 @@ function stubSystemScheme(scheme: 'light' | 'dark') {
 }
 
 function Probe() {
-  const { mode, scheme, setScheme } = useTheme()
+  const { mode, scheme, setScheme, motionStrength, setMotionStrength } = useTheme()
   return (
     <div>
       <span data-testid='mode'>{mode}</span>
       <span data-testid='scheme'>{scheme}</span>
+      <span data-testid='motion'>{motionStrength}</span>
       <button onClick={() => setScheme('light')} type='button'>
         light
+      </button>
+      <button onClick={() => setMotionStrength('none')} type='button'>
+        no motion
       </button>
     </div>
   )
@@ -48,6 +52,7 @@ describe('<ThemeProvider>', () => {
   afterEach(() => {
     cleanup()
     document.documentElement.removeAttribute('style')
+    document.documentElement.removeAttribute('muir-motion')
   })
 
   it('follows the system scheme by default', () => {
@@ -101,6 +106,88 @@ describe('<ThemeProvider>', () => {
     )
 
     expect(primaryColor()).toBe('#333333')
+  })
+})
+
+describe('<ThemeProvider> motion strength', () => {
+  beforeEach(() => {
+    localStorage.clear()
+  })
+
+  afterEach(() => {
+    cleanup()
+    document.documentElement.removeAttribute('muir-motion')
+  })
+
+  function motionAttribute() {
+    return document.documentElement.getAttribute('muir-motion')
+  }
+
+  it('defaults to full motion', () => {
+    stubSystemScheme('dark')
+    render(
+      <ThemeProvider>
+        <Probe />
+      </ThemeProvider>,
+    )
+
+    expect(screen.getByTestId('motion').textContent).toBe('full')
+    expect(motionAttribute()).toBe('full')
+  })
+
+  it('reduces motion when the OS asks for it', () => {
+    stubSystemScheme('dark', true)
+    render(
+      <ThemeProvider>
+        <Probe />
+      </ThemeProvider>,
+    )
+
+    expect(motionAttribute()).toBe('reduced')
+  })
+
+  it('uses the provided default', () => {
+    stubSystemScheme('dark', true)
+    render(
+      <ThemeProvider defaultMotionStrength='none'>
+        <Probe />
+      </ThemeProvider>,
+    )
+
+    expect(motionAttribute()).toBe('none')
+  })
+
+  it('applies and remembers the selected strength', () => {
+    stubSystemScheme('dark')
+    const first = render(
+      <ThemeProvider>
+        <Probe />
+      </ThemeProvider>,
+    )
+    act(() => screen.getByText('no motion').click())
+
+    expect(motionAttribute()).toBe('none')
+    first.unmount()
+
+    render(
+      <ThemeProvider>
+        <Probe />
+      </ThemeProvider>,
+    )
+
+    expect(screen.getByTestId('motion').textContent).toBe('none')
+  })
+
+  it('ignores an invalid stored strength', () => {
+    stubSystemScheme('dark')
+    localStorage.setItem('muir-motion-strength', JSON.stringify('fast'))
+    render(
+      <ThemeProvider>
+        <Probe />
+      </ThemeProvider>,
+    )
+
+    expect(motionAttribute()).toBe('full')
   })
 })
 

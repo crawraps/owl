@@ -134,6 +134,14 @@ export type ColorScheme = ThemeMode | 'system'
 
 export type ThemeBinding = Record<ThemeMode, string>
 
+/**
+ * How impactful animations are:
+ * - `full` — every animation runs
+ * - `reduced` — only accessibility feedback (hover, press, focus) runs
+ * - `none` — no animation runs
+ */
+export type MotionStrength = 'full' | 'reduced' | 'none'
+
 export interface ThemeProviderProps {
   children?: ReactNode
   /**
@@ -144,6 +152,10 @@ export interface ThemeProviderProps {
    * Theme names used for each mode. Defaults to `light` and `dark`
    */
   bind?: Partial<ThemeBinding>
+  /**
+   * Motion strength used until the user picks one. The OS reduced motion preference can only lower it. Defaults to `full`
+   */
+  defaultMotionStrength?: MotionStrength
 }
 
 export interface ThemeContextValue {
@@ -151,4 +163,6 @@ export interface ThemeContextValue {
   mode: ThemeMode
   scheme: ColorScheme
   setScheme: (scheme: ColorScheme) => void
+  motionStrength: MotionStrength
+  setMotionStrength: (strength: MotionStrength) => void
 }

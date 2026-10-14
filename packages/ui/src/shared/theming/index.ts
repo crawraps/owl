@@ -6,6 +6,7 @@ export type {
   ColorScheme,
   DeepPartial,
   Motion,
+  MotionStrength,
   Shape,
   SurfaceConfig,
   Theme,
