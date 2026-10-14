@@ -21,7 +21,10 @@ export interface AnimeScopeTools {
 
 export type AnimeScopeType = Scope & { root: HTMLElement }
 
-export type AnimeScopeInit = (scope: AnimeScopeType, tools: AnimeScopeTools) => void
+/**
+ * Initializes the scope. The returned function runs when the scope reverts
+ */
+export type AnimeScopeInit = (scope: AnimeScopeType, tools: AnimeScopeTools) => (() => void) | undefined
 
 export interface AnimeScopeProps {
   // biome-ignore lint/suspicious/noExplicitAny: Accepts any React element

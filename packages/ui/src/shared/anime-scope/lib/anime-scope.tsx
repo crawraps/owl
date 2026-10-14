@@ -36,9 +36,7 @@ function AnimeScope({ ref, init, children }: AnimeScopeProps) {
 
     currentScope.current = createScope({ root: childRef.current ?? undefined })
     if (init) {
-      currentScope.current.add(scope => {
-        init(scope as AnimeScopeType, tools)
-      })
+      currentScope.current.add(scope => init(scope as AnimeScopeType, tools))
     }
 
     return () => currentScope.current?.revert()

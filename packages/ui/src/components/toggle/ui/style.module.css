@@ -1,0 +1,65 @@
+.root {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.5rem;
+  padding: 0 1.5rem;
+  border: none;
+  border-radius: var(--md-sys-shape-corner-full);
+  background-color: transparent;
+  color: var(--md-sys-color-on-surface);
+  font-family: var(--md-ref-typeface-plain);
+  font-size: var(--md-sys-typescale-label-large-size);
+  line-height: var(--md-sys-typescale-label-large-line-height);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    scale var(--md-sys-motion-standart-fast-spatial-transition),
+    background-color var(--md-sys-motion-standart-fast-effects-transition),
+    color var(--md-sys-motion-standart-fast-effects-transition);
+}
+
+.root[data-pressed] {
+  background-color: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+}
+
+.root:active:not([data-disabled]) {
+  scale: 0.96;
+}
+
+.root:focus-visible {
+  outline: 2px solid var(--md-sys-color-secondary);
+  outline-offset: 2px;
+}
+
+.root[data-disabled] {
+  cursor: default;
+  opacity: 0.38;
+}
+
+.label {
+  display: inline-grid;
+}
+
+.text,
+.reserve {
+  grid-area: 1 / 1;
+  text-align: center;
+}
+
+.text {
+  font-weight: var(--md-sys-typescale-label-large-weight);
+  transition: font-weight var(--md-sys-motion-standart-fast-effects-transition);
+}
+
+.reserve {
+  font-weight: 700;
+  visibility: hidden;
+}
+
+@media (hover: hover) {
+  .root:hover:not([data-disabled]) .text {
+    font-weight: 700;
+  }
+}
