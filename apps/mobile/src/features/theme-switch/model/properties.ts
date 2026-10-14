@@ -1,5 +1,3 @@
-import type { HTMLAttributes, Ref } from 'react'
+import type { ColorScheme, ToggleGroupProps } from '@repo/ui'
 
-export interface ThemeSwitchProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
-  ref?: Ref<HTMLDivElement>
-}
+export interface ThemeSwitchProps extends Omit<ToggleGroupProps<ColorScheme>, 'children' | 'defaultValue' | 'onValueChange' | 'required' | 'value'> {}

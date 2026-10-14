@@ -1,4 +1,4 @@
-import { useTheme } from '@repo/ui'
+import { type ColorScheme, Toggle, ToggleGroup, useTheme } from '@repo/ui'
 import { schemes } from '../config/schemes'
 import type { ThemeSwitchProps } from '../model/properties'
 
@@ -6,13 +6,13 @@ function ThemeSwitch(props: ThemeSwitchProps) {
   const { scheme, setScheme } = useTheme()
 
   return (
-    <div {...props}>
+    <ToggleGroup<ColorScheme> aria-label='Theme' {...props} onValueChange={([next]) => next && setScheme(next)} required value={[scheme]}>
       {schemes.map(item => (
-        <button aria-pressed={item.value === scheme} key={item.value} onClick={() => setScheme(item.value)} type='button'>
+        <Toggle key={item.value} value={item.value}>
           {item.label}
-        </button>
+        </Toggle>
       ))}
-    </div>
+    </ToggleGroup>
   )
 }
 
