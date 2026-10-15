@@ -1,4 +1,5 @@
-import type { ColorPalette, MotionStrength, Shape, SurfaceConfig, Theme, Typeface } from '../model/properties'
+import type { ColorPalette, Grain, Layout, MotionStrength, Shape, Space, Theme, Typeface } from '../model/properties'
+import { grainTexture } from './grain-texture'
 
 const css = `body{margin:0;background-color:var(--md-sys-color-background);color:var(--md-sys-color-on-background);font-family:var(--md-ref-typeface-plain);transition:background-color var(--md-sys-motion-expressive-fast-effects-transition),color var(--md-sys-motion-expressive-fast-effects-transition)}small{font-size:var(--md-sys-typescale-body-small-size);color:var(--md-sys-color-on-surface);opacity:.75}[muir-motion='none'] *,[muir-motion='none'] *::before,[muir-motion='none'] *::after{transition:none!important;animation:none!important}`
 
@@ -53,17 +54,57 @@ export function applyTypefaceToCss(typography: Typeface): void {
   }
 }
 
-export function applySurfaceToCss(surface: SurfaceConfig): void {
+export function applySpaceToCss(space: Space): void {
   const root = document.documentElement
 
-  root.style.setProperty('--md-sys-surface-type', surface.type)
-  root.style.setProperty('--md-sys-surface-blur', `${surface.blur}px`)
-  root.style.setProperty('--md-sys-surface-opacity', surface.opacity.toString())
-  root.style.setProperty('--md-sys-surface-grain-density', surface.grain.density.toString())
-  root.style.setProperty('--md-sys-surface-grain-opacity', surface.grain.opacity.toString())
-  root.style.setProperty('--md-sys-surface-grain-light-surface-scale', surface.grain.light.surfaceScale.toString())
-  root.style.setProperty('--md-sys-surface-grain-light-elevation', surface.grain.light.elevation.toString())
-  root.style.setProperty('--md-sys-surface-grain-light-specularity', surface.grain.light.specularity.toString())
+  for (const [key, value] of Object.entries(space)) {
+    root.style.setProperty(`--md-sys-space-${key}`, `${value}rem`)
+  }
+}
+
+export function applyBlurToCss(blur: Theme['blur']): void {
+  const root = document.documentElement
+
+  for (const [size, value] of Object.entries(blur)) {
+    root.style.setProperty(`--md-sys-blur-${size}`, `${value}px`)
+  }
+}
+
+export function applyOpacityToCss(opacity: Theme['opacity']): void {
+  const root = document.documentElement
+
+  for (const [size, value] of Object.entries(opacity)) {
+    root.style.setProperty(`--md-sys-opacity-${size}`, value.toString())
+  }
+}
+
+export function applyGlassToCss(glass: Theme['glass']): void {
+  const root = document.documentElement
+
+  for (const [size, level] of Object.entries(glass)) {
+    root.style.setProperty(`--md-sys-glass-${size}-blur`, `var(--md-sys-blur-${level.blur})`)
+    root.style.setProperty(`--md-sys-glass-${size}-opacity`, `var(--md-sys-opacity-${level.opacity})`)
+  }
+}
+
+export function applyGrainToCss(grain: Grain): void {
+  const root = document.documentElement
+
+  root.style.setProperty('--md-sys-grain-texture', grainTexture(grain))
+  root.style.setProperty('--md-sys-grain-size', `${grain.tileSize}rem`)
+}
+
+export function applyLayoutToCss(layout: Layout): void {
+  const root = document.documentElement
+
+  root.style.setProperty('--md-sys-layout-margin-compact', `${layout.margin.compact}rem`)
+  root.style.setProperty('--md-sys-layout-margin-wide', `${layout.margin.wide}rem`)
+  root.style.setProperty('--md-sys-layout-pane-spacer', `${layout.spacer}rem`)
+  root.style.setProperty('--md-sys-layout-pane-fixed-expanded', `${layout.paneFixed.expanded}rem`)
+  root.style.setProperty('--md-sys-layout-pane-fixed-large', `${layout.paneFixed.large}rem`)
+  root.style.setProperty('--md-sys-layout-pane-min', `${layout.paneMin}rem`)
+  root.style.setProperty('--md-sys-layout-rail-collapsed', `${layout.rail.collapsed}rem`)
+  root.style.setProperty('--md-sys-layout-rail-expanded', `${layout.rail.expanded}rem`)
 }
 
 export function applyThemeToCss(theme: Theme): void {
@@ -71,7 +112,12 @@ export function applyThemeToCss(theme: Theme): void {
   applyShapeToCss(theme.shape)
   applyTypefaceToCss(theme.typeface)
   applyMotionToCss(theme.motion)
-  applySurfaceToCss(theme.surface)
+  applySpaceToCss(theme.space)
+  applyBlurToCss(theme.blur)
+  applyOpacityToCss(theme.opacity)
+  applyGlassToCss(theme.glass)
+  applyGrainToCss(theme.grain)
+  applyLayoutToCss(theme.layout)
 
   let stylesheet = document.getElementById(BASE_STYLE_ID) as HTMLStyleElement | null
   if (!stylesheet) {

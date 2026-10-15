@@ -14,9 +14,9 @@
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   transition:
-    scale var(--md-sys-motion-standart-fast-spatial-transition),
-    background-color var(--md-sys-motion-standart-fast-effects-transition),
-    color var(--md-sys-motion-standart-fast-effects-transition);
+    scale var(--md-sys-motion-standard-fast-spatial-transition),
+    background-color var(--md-sys-motion-standard-fast-effects-transition),
+    color var(--md-sys-motion-standard-fast-effects-transition);
 }
 
 .root[data-pressed] {
@@ -50,7 +50,7 @@
 
 .text {
   font-weight: var(--md-sys-typescale-label-large-weight);
-  transition: font-weight var(--md-sys-motion-standart-fast-effects-transition);
+  transition: font-weight var(--md-sys-motion-standard-fast-effects-transition);
 }
 
 .reserve {

@@ -5,16 +5,21 @@ export type {
   ColorPalette,
   ColorScheme,
   DeepPartial,
+  GlassLevel,
+  Grain,
+  Layout,
   Motion,
   MotionStrength,
   Shape,
-  SurfaceConfig,
+  Size,
+  Space,
   Theme,
   ThemeBinding,
   ThemeContextValue,
   ThemeMode,
   ThemeProviderProps,
   Typeface,
+  WindowClass,
 } from './model/properties'
 export { useSafeThemeMode, useTheme } from './model/theme-context'
 export { ThemeProvider } from './model/theme-provider'

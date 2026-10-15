@@ -42,25 +42,69 @@ type Transition = {
   bounce: number
 }
 
-export type Motion = Record<'expressive' | 'standart', Record<'fast' | 'default' | 'slow', Record<'effects' | 'spatial', Transition>>>
+export type Motion = Record<'expressive' | 'standard', Record<'fast' | 'default' | 'slow', Record<'effects' | 'spatial', Transition>>>
 
-export interface SurfaceLightConfig {
-  surfaceScale: number
-  elevation: number
-  specularity: number
+export type Space = Record<1 | 2 | 4 | 6 | 10 | 16 | 32, number>
+
+export type Size = 'xs' | 's' | 'm' | 'l' | 'xl'
+
+export interface GlassLevel {
+  blur: Size
+  opacity: Size
 }
 
-export interface SurfaceGrainConfig {
-  density: number
+/**
+ * Noise baked into blurred things. Never laid over text or crisp edges
+ */
+export interface Grain {
+  /**
+   * Peak alpha of a speck, 0–1
+   */
   opacity: number
-  light: SurfaceLightConfig
+  /**
+   * feTurbulence baseFrequency: higher is finer grain
+   */
+  frequency: number
+  /**
+   * feTurbulence numOctaves: 1 is even film grain, 2–3 clump it
+   */
+  octaves: number
+  /**
+   * Speck colour: light specks read on dark images, dark specks on light ones
+   */
+  tone: 'light' | 'dark'
+  /**
+   * Size of the repeating noise tile in rem
+   */
+  tileSize: number
 }
 
-export interface SurfaceConfig {
-  type: 'plain' | 'crust'
-  blur: number
-  opacity: number
-  grain: SurfaceGrainConfig
+export type WindowClass = 'compact' | 'medium' | 'expanded' | 'large' | 'extraLarge'
+
+/**
+ * Material 3 window size classes and panes. Lengths in rem
+ */
+export interface Layout {
+  /**
+   * Minimum width of each class; compact is everything below medium
+   */
+  breakpoints: Record<Exclude<WindowClass, 'compact'>, number>
+  margin: { compact: number; wide: number }
+  /**
+   * Most panes shown side by side, per class
+   */
+  maxPanes: Record<WindowClass, number>
+  /**
+   * Gap between panes
+   */
+  spacer: number
+  /**
+   * Width of a fixed pane (the list in list-detail)
+   */
+  paneFixed: { expanded: number; large: number }
+  paneMin: number
+  rail: { collapsed: number; expanded: number }
+  paneShape: keyof Shape
 }
 
 export interface Theme {
@@ -71,7 +115,24 @@ export interface Theme {
   shape: Shape
   typeface: Typeface
   motion: Motion
-  surface: SurfaceConfig
+  /**
+   * Spacing values in rem
+   */
+  space: Space
+  /**
+   * Blur radii in px
+   */
+  blur: Record<Size, number>
+  /**
+   * Opacity values, 0–1
+   */
+  opacity: Record<Size, number>
+  /**
+   * Translucent containers composed from a blur and an opacity
+   */
+  glass: Record<Size, GlassLevel>
+  grain: Grain
+  layout: Layout
 }
 
 export interface ColorPalette {

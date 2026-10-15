@@ -34,7 +34,7 @@ const init: AnimeScopeInit = (scope, { animate, motion }) => {
 
   scope.add('move', () => {
     const pressed = findPressed()
-    const fade = { duration: motion().standart.fast.effects.duration, ease: 'out' as const }
+    const fade = { duration: motion().standard.fast.effects.duration, ease: 'out' as const }
 
     if (!pressed) {
       visible = false
