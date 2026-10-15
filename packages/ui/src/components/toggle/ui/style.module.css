@@ -5,7 +5,7 @@
   min-height: 2.5rem;
   padding: 0 1.5rem;
   border: none;
-  border-radius: var(--md-sys-shape-corner-full);
+  border-radius: var(--md-sys-shape-corner-medium);
   background-color: transparent;
   color: var(--md-sys-color-on-surface);
   font-family: var(--md-ref-typeface-plain);
@@ -25,7 +25,7 @@
 }
 
 .root:active:not([data-disabled]) {
-  scale: 0.96;
+  scale: 0.98;
 }
 
 .root:focus-visible {
