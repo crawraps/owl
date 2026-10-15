@@ -3,8 +3,8 @@ import { cleanup, render } from '@testing-library/react'
 import type { Scope } from 'animejs'
 import { createRef } from 'react'
 import { type MotionStrength, ThemeProvider } from 'src/shared/theming'
-import { isTierAllowed } from '../lib/is-tier-allowed'
 import AnimeScope from '../lib/anime-scope'
+import { isTierAllowed } from '../lib/is-tier-allowed'
 import type { AnimeScopeInit, AnimeScopeTools } from '../model/properties'
 
 function renderScope(init: AnimeScopeInit, motionStrength: MotionStrength = 'full', ref = createRef<Scope | null>()) {
